@@ -271,7 +271,6 @@ function selectFromAlbum() {
 function showManualInputPage() {
     closePhotoModal();
     document.getElementById('manual-food-name').value = '';
-    document.getElementById('manual-food-kcal').value = '';
     showPage('manual-input-page');
 }
 
