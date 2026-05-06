@@ -308,6 +308,30 @@ body {
     background: #eee;
 }
 
+/* 餐食选择按钮 */
+.meal-select-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.meal-select-btn {
+    padding: 20px 16px;
+    background: linear-gradient(135deg, #ff6b6b, #ee5a5a);
+    color: white;
+    border: none;
+    border-radius: 16px;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.meal-select-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+}
+
 /* 图片预览页 */
 .preview-header {
     display: flex;

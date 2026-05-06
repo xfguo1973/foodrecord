@@ -99,8 +99,24 @@
     <div id="add-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>添加记录</h3>
+                <h3>选择餐食类型</h3>
                 <button class="close-btn" onclick="closeAddModal()">×</button>
+            </div>
+            <div class="modal-body meal-select-body">
+                <button class="meal-select-btn" onclick="selectMealType('breakfast')">🍳 早餐</button>
+                <button class="meal-select-btn" onclick="selectMealType('lunch')">🍱 午餐</button>
+                <button class="meal-select-btn" onclick="selectMealType('snack')">🍪 加餐</button>
+                <button class="meal-select-btn" onclick="selectMealType('dinner')">🍝 晚餐</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 选择照片方式弹窗 -->
+    <div id="photo-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>添加记录</h3>
+                <button class="close-btn" onclick="closePhotoModal()">×</button>
             </div>
             <div class="modal-body">
                 <button class="upload-btn" onclick="selectPhoto()">📷 拍照</button>

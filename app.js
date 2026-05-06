@@ -9,6 +9,7 @@ let currentMeals = {
 let dailyRecords = {};
 let targetKcal = 1600;
 let resultKcal = 0;
+let selectedMealType = '';
 
 // 初始化数据
 function initData() {
@@ -209,7 +210,7 @@ function showPage(pageId) {
     }
 }
 
-// 打开添加弹窗
+// 打开添加弹窗（选择餐食类型）
 function openAddModal() {
     document.getElementById('add-modal').classList.add('active');
 }
@@ -219,9 +220,21 @@ function closeAddModal() {
     document.getElementById('add-modal').classList.remove('active');
 }
 
+// 选择餐食类型
+function selectMealType(mealType) {
+    selectedMealType = mealType;
+    closeAddModal();
+    document.getElementById('photo-modal').classList.add('active');
+}
+
+// 关闭照片选择弹窗
+function closePhotoModal() {
+    document.getElementById('photo-modal').classList.remove('active');
+}
+
 // 选择照片
 function selectPhoto() {
-    closeAddModal();
+    closePhotoModal();
     const fileInput = document.getElementById('file-input');
     fileInput.setAttribute('capture', 'environment');
     fileInput.accept = 'image/*';
@@ -230,7 +243,7 @@ function selectPhoto() {
 
 // 从相册选择
 function selectFromAlbum() {
-    closeAddModal();
+    closePhotoModal();
     const fileInput = document.getElementById('file-input');
     fileInput.removeAttribute('capture');
     fileInput.accept = 'image/*';
@@ -252,17 +265,16 @@ document.getElementById('file-input').addEventListener('change', function(e) {
 // 开始识别
 function startRecognition() {
     showPage('recognition-page');
-    
+
     // 模拟识别过程
     setTimeout(() => {
         // 随机生成卡路里值（100-500之间）
         resultKcal = Math.floor(Math.random() * 400) + 100;
-        
-        // 根据当前时间分类
+
+        // 使用用户选择的餐食类型
+        const category = selectedMealType;
         const now = new Date();
-        const hour = now.getHours();
-        const category = getMealCategory(hour);
-        
+
         // 添加记录
         const dateStr = getCurrentDateStr();
         if (!dailyRecords[dateStr]) {
@@ -273,14 +285,14 @@ function startRecognition() {
                 snack: []
             };
         }
-        
+
         dailyRecords[dateStr][category].push({
             kcal: resultKcal,
             time: now.toTimeString().slice(0, 5)
         });
-        
+
         localStorage.setItem('dailyRecords', JSON.stringify(dailyRecords));
-        
+
         // 更新结果显示
         document.getElementById('result-kcal').textContent = resultKcal;
         showPage('complete-page');
@@ -290,7 +302,9 @@ function startRecognition() {
 // 再拍一张
 function addAnother() {
     showPage('home-page');
-    openAddModal();
+    setTimeout(() => {
+        document.getElementById('photo-modal').classList.add('active');
+    }, 100);
 }
 
 // 返回首页
