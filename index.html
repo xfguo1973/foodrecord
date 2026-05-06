@@ -130,7 +130,7 @@
     <div id="manual-input-page" class="page">
         <div class="preview-header">
             <button class="back-btn" onclick="goBackFromManual()">← 返回</button>
-            <button class="confirm-btn" onclick="saveManualInput()">保存</button>
+            <button class="confirm-btn" onclick="estimateCalories()">AI估算</button>
         </div>
         <div class="manual-input-content">
             <div class="manual-input-title">输入食品信息</div>
@@ -138,10 +138,7 @@
                 <label for="manual-food-name">食品名称</label>
                 <input type="text" id="manual-food-name" placeholder="例如：汉堡、米饭、苹果...">
             </div>
-            <div class="form-group">
-                <label for="manual-food-kcal">卡路里（kcal）</label>
-                <input type="number" id="manual-food-kcal" placeholder="例如：300" min="0">
-            </div>
+            <div class="estimate-hint">输入食品名称后，点击"AI估算"获取卡路里</div>
         </div>
     </div>
 

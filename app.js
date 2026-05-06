@@ -280,43 +280,43 @@ function goBackFromManual() {
     showPage('home-page');
 }
 
-// 保存手动输入
-function saveManualInput() {
+// AI估算卡路里
+function estimateCalories() {
     const foodName = document.getElementById('manual-food-name').value.trim();
-    const kcal = parseInt(document.getElementById('manual-food-kcal').value) || 0;
 
     if (!foodName) {
         alert('请输入食品名称');
         return;
     }
-    if (kcal <= 0) {
-        alert('请输入有效的卡路里值');
-        return;
-    }
 
-    const category = selectedMealType;
-    const now = new Date();
-    const dateStr = getCurrentDateStr();
+    showPage('recognition-page');
 
-    if (!dailyRecords[dateStr]) {
-        dailyRecords[dateStr] = {
-            breakfast: [],
-            lunch: [],
-            dinner: [],
-            snack: []
-        };
-    }
+    setTimeout(() => {
+        resultKcal = Math.floor(Math.random() * 400) + 100;
 
-    dailyRecords[dateStr][category].push({
-        kcal: kcal,
-        time: now.toTimeString().slice(0, 5),
-        description: foodName
-    });
+        const category = selectedMealType;
+        const now = new Date();
+        const dateStr = getCurrentDateStr();
 
-    localStorage.setItem('dailyRecords', JSON.stringify(dailyRecords));
-    resultKcal = kcal;
-    document.getElementById('result-kcal').textContent = resultKcal;
-    showPage('complete-page');
+        if (!dailyRecords[dateStr]) {
+            dailyRecords[dateStr] = {
+                breakfast: [],
+                lunch: [],
+                dinner: [],
+                snack: []
+            };
+        }
+
+        dailyRecords[dateStr][category].push({
+            kcal: resultKcal,
+            time: now.toTimeString().slice(0, 5),
+            description: foodName
+        });
+
+        localStorage.setItem('dailyRecords', JSON.stringify(dailyRecords));
+        document.getElementById('result-kcal').textContent = resultKcal;
+        showPage('complete-page');
+    }, 2000 + Math.random() * 1000);
 }
 // 文件选择处理
 document.getElementById('file-input').addEventListener('change', function(e) {

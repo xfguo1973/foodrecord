@@ -698,3 +698,10 @@ body {
 .form-group input::placeholder {
     color: #999;
 }
+
+.estimate-hint {
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+    margin-top: 8px;
+}
