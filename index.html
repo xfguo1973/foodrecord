@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -201,4 +202,209 @@
     <input type="file" id="file-input" accept="image/*" capture="environment" style="display: none;">
     <script src="app.js"></script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>饮食记录</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 首页 -->
+    <div id="home-page" class="page active">
+        <!-- 日期选择器 -->
+        <div class="date-selector">
+            <button class="date-btn" onclick="changeDate(-1)">←</button>
+            <span class="date-label" id="yesterday-label">昨天</span>
+            <span class="date-label active" id="today-label">今天</span>
+            <span class="date-label" id="tomorrow-label">明天</span>
+            <button class="date-btn" onclick="changeDate(1)">→</button>
+        </div>
+
+        <!-- 总结卡片 -->
+        <div class="summary-card">
+            <div class="summary-kcal">🔥 <span id="total-kcal">1850</span> kcal</div>
+            <div class="summary-status" id="status-emoji">😐</div>
+            <div class="summary-text" id="summary-text">有点多了</div>
+            <div class="summary-suggestion" id="suggestion-text">👉 加餐有点多，晚餐尽量清淡</div>
+        </div>
+
+        <!-- 记录列表 -->
+        <div class="record-section">
+            <h3 class="section-title">📅 <span id="current-date">今天</span></h3>
+            
+            <div class="meal-cards" id="meal-cards">
+                <!-- 早餐 -->
+                <div class="meal-card">
+                    <div class="meal-header">
+                        <span class="meal-title">🍳 早餐（1）</span>
+                    </div>
+                    <div class="meal-content">
+                        <div class="food-item">
+                            <div class="food-photo-placeholder">[📷]</div>
+                            <div class="food-kcal">350 kcal</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 午餐 -->
+                <div class="meal-card">
+                    <div class="meal-header">
+                        <span class="meal-title">🍱 午餐（1）</span>
+                    </div>
+                    <div class="meal-content">
+                        <div class="food-item">
+                            <div class="food-photo-placeholder">[📷]</div>
+                            <div class="food-kcal">700 kcal</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 加餐 -->
+                <div class="meal-card">
+                    <div class="meal-header">
+                        <span class="meal-title">🍪 加餐（2）</span>
+                    </div>
+                    <div class="meal-content">
+                        <div class="food-item">
+                            <div class="food-photo-placeholder">[📷]</div>
+                            <div class="food-kcal">200 kcal</div>
+                        </div>
+                        <div class="food-item">
+                            <div class="food-photo-placeholder">[📷]</div>
+                            <div class="food-kcal">300 kcal</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 晚餐 -->
+                <div class="meal-card empty">
+                    <div class="meal-header">
+                        <span class="meal-title">🍝 晚餐</span>
+                    </div>
+                    <div class="meal-content empty-content">
+                        <div class="empty-text">❌ 未记录</div>
+                        <button class="add-photo-btn" onclick="openAddModal()">📷 拍照</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部导航 -->
+        <div class="bottom-nav">
+            <button class="nav-btn active" id="nav-home" onclick="showPage('home-page')">🏠</button>
+            <button class="nav-btn add-btn" onclick="openAddModal()">＋</button>
+            <button class="nav-btn" id="nav-trend" onclick="showPage('trend-page')">📈</button>
+        </div>
+    </div>
+
+    <!-- 添加记录弹窗 -->
+    <div id="add-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>添加记录</h3>
+                <button class="close-btn" onclick="closeAddModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <button class="upload-btn" onclick="selectPhoto()">📷 拍照</button>
+                <button class="upload-btn" onclick="selectFromAlbum()">🖼 从相册选择</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 图片预览页 -->
+    <div id="preview-page" class="page">
+        <div class="preview-header">
+            <button class="back-btn" onclick="showPage('home-page')">← 返回</button>
+            <button class="confirm-btn" onclick="startRecognition()">确认上传</button>
+        </div>
+        <div class="preview-content">
+            <div class="preview-title">图片预览</div>
+            <img id="preview-image" src="" alt="预览图片">
+        </div>
+    </div>
+
+    <!-- 识别中页 -->
+    <div id="recognition-page" class="page">
+        <div class="recognition-content">
+            <div class="recognition-emoji">🤖</div>
+            <div class="recognition-title">识别中…</div>
+            <div class="recognition-text">正在估算卡路里</div>
+            <div class="recognition-time">（1-3秒）</div>
+        </div>
+    </div>
+
+    <!-- 上传完成页 -->
+    <div id="complete-page" class="page">
+        <div class="complete-content">
+            <div class="complete-emoji">✅</div>
+            <div class="complete-title">已记录</div>
+            <div class="complete-kcal">🔥 <span id="result-kcal">300</span> kcal</div>
+        </div>
+        <div class="complete-actions">
+            <button class="action-btn" onclick="addAnother()">📷 再拍一张</button>
+            <button class="action-btn primary" onclick="goHome()">← 返回首页</button>
+        </div>
+    </div>
+
+    <!-- 趋势页 -->
+    <div id="trend-page" class="page">
+        <div class="trend-header">
+            <h3>近7天趋势</h3>
+        </div>
+        
+        <!-- 折线图 -->
+        <div class="chart-container">
+            <canvas id="trend-chart"></canvas>
+        </div>
+
+        <!-- 统计信息 -->
+        <div class="stats-card">
+            <div class="stat-item">
+                <span class="stat-label">平均</span>
+                <span class="stat-value">1700 kcal</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">目标</span>
+                <span class="stat-value">1600 kcal</span>
+            </div>
+        </div>
+
+        <div class="trend-summary" id="trend-summary">👉 最近整体偏高</div>
+
+        <!-- 各餐分析 -->
+        <div class="meal-analysis">
+            <div class="analysis-item">
+                <span class="analysis-icon">🍳</span>
+                <span class="analysis-name">早餐</span>
+                <span class="analysis-status normal">正常</span>
+            </div>
+            <div class="analysis-item">
+                <span class="analysis-icon">🍱</span>
+                <span class="analysis-name">午餐</span>
+                <span class="analysis-status high">略高</span>
+            </div>
+            <div class="analysis-item">
+                <span class="analysis-icon">🍝</span>
+                <span class="analysis-name">晚餐</span>
+                <span class="analysis-status warning">偏高 ⚠️</span>
+            </div>
+        </div>
+
+        <div class="trend-suggestion" id="trend-suggestion">👉 建议减少晚餐主食</div>
+
+        <!-- 底部导航 -->
+        <div class="bottom-nav">
+            <button class="nav-btn" id="nav-home2" onclick="showPage('home-page')">🏠</button>
+            <button class="nav-btn add-btn" onclick="openAddModal()">＋</button>
+            <button class="nav-btn active" id="nav-trend2" onclick="showPage('trend-page')">📈</button>
+        </div>
+    </div>
+
+    <input type="file" id="file-input" accept="image/*" capture="environment" style="display: none;">
+    <script src="app.js"></script>
+</body>
+>>>>>>> e1d5456565f8cda40ed8c10b016a539a66ba2ca8
 </html>
