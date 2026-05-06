@@ -113,13 +113,14 @@ function renderMealCards() {
                     <span class="meal-title">${meal.title}（${items.length}）</span>
                 </div>
                 <div class="meal-content">
-                    ${items.map(item => `
+                    ${items.map((item, index) => `
                         <div class="food-item">
                             <div class="food-photo-placeholder">[📷]</div>
                             <div class="food-info">
                                 <div class="food-name">${item.description || '未命名'}</div>
                                 <div class="food-kcal">${item.kcal} kcal</div>
                             </div>
+                            <button class="delete-btn" onclick="deleteMealRecord('${meal.key}', ${index})">×</button>
                         </div>
                     `).join('')}
                 </div>
@@ -138,6 +139,18 @@ function renderMealCards() {
         
         container.appendChild(card);
     });
+}
+
+// 删除餐食记录
+function deleteMealRecord(mealType, index) {
+    if (confirm('确定要删除这条记录吗？')) {
+        const dateStr = getCurrentDateStr();
+        if (dailyRecords[dateStr] && dailyRecords[dateStr][mealType]) {
+            dailyRecords[dateStr][mealType].splice(index, 1);
+            localStorage.setItem('dailyRecords', JSON.stringify(dailyRecords));
+            loadRecords();
+        }
+    }
 }
 
 // 计算总卡路里

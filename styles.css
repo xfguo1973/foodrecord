@@ -173,6 +173,27 @@ body {
     font-weight: 500;
 }
 
+.delete-btn {
+    margin-left: auto;
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: #ffebee;
+    color: #f44336;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.delete-btn:hover {
+    background: #ffcdd2;
+    transform: scale(1.1);
+}
+
 .empty-content {
     display: flex;
     flex-direction: column;
