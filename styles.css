@@ -155,8 +155,20 @@ body {
     font-size: 24px;
 }
 
-.food-kcal {
+.food-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.food-name {
     font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.food-kcal {
+    font-size: 12px;
     color: #666;
     font-weight: 500;
 }
@@ -330,6 +342,38 @@ body {
 .meal-select-btn:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+}
+
+/* 食品描述输入框 */
+.food-description-section {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.food-description-section label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.food-description-section input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #eee;
+    border-radius: 12px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.food-description-section input:focus {
+    border-color: #ff6b6b;
+}
+
+.food-description-section input::placeholder {
+    color: #999;
 }
 
 /* 图片预览页 */

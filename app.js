@@ -10,6 +10,7 @@ let dailyRecords = {};
 let targetKcal = 1600;
 let resultKcal = 0;
 let selectedMealType = '';
+let currentFoodDescription = '';
 
 // 初始化数据
 function initData() {
@@ -18,9 +19,9 @@ function initData() {
         // Mock数据
         const mockData = {
             [today]: {
-                breakfast: [{ kcal: 350, time: '08:30' }],
-                lunch: [{ kcal: 700, time: '12:00' }],
-                snack: [{ kcal: 200, time: '15:30' }, { kcal: 300, time: '17:00' }],
+                breakfast: [{ kcal: 350, time: '08:30', description: '牛奶面包' }],
+                lunch: [{ kcal: 700, time: '12:00', description: '米饭炒菜' }],
+                snack: [{ kcal: 200, time: '15:30', description: '苹果' }, { kcal: 300, time: '17:00', description: '饼干' }],
                 dinner: []
             }
         };
@@ -115,7 +116,10 @@ function renderMealCards() {
                     ${items.map(item => `
                         <div class="food-item">
                             <div class="food-photo-placeholder">[📷]</div>
-                            <div class="food-kcal">${item.kcal} kcal</div>
+                            <div class="food-info">
+                                <div class="food-name">${item.description || '未命名'}</div>
+                                <div class="food-kcal">${item.kcal} kcal</div>
+                            </div>
                         </div>
                     `).join('')}
                 </div>
@@ -256,6 +260,7 @@ document.getElementById('file-input').addEventListener('change', function(e) {
         const reader = new FileReader();
         reader.onload = function(event) {
             document.getElementById('preview-image').src = event.target.result;
+            document.getElementById('food-description').value = '';
             showPage('preview-page');
         };
         reader.readAsDataURL(file);
@@ -264,6 +269,9 @@ document.getElementById('file-input').addEventListener('change', function(e) {
 
 // 开始识别
 function startRecognition() {
+    // 获取用户输入的食品描述
+    currentFoodDescription = document.getElementById('food-description').value || '未命名';
+    
     showPage('recognition-page');
 
     // 模拟识别过程
@@ -288,7 +296,8 @@ function startRecognition() {
 
         dailyRecords[dateStr][category].push({
             kcal: resultKcal,
-            time: now.toTimeString().slice(0, 5)
+            time: now.toTimeString().slice(0, 5),
+            description: currentFoodDescription
         });
 
         localStorage.setItem('dailyRecords', JSON.stringify(dailyRecords));
