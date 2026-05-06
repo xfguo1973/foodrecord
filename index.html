@@ -121,6 +121,26 @@
             <div class="modal-body">
                 <button class="upload-btn" onclick="selectPhoto()">📷 拍照</button>
                 <button class="upload-btn" onclick="selectFromAlbum()">🖼 从相册选择</button>
+                <button class="upload-btn" onclick="showManualInputPage()">✏️ 输入食品</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 输入食品页 -->
+    <div id="manual-input-page" class="page">
+        <div class="preview-header">
+            <button class="back-btn" onclick="goBackFromManual()">← 返回</button>
+            <button class="confirm-btn" onclick="saveManualInput()">保存</button>
+        </div>
+        <div class="manual-input-content">
+            <div class="manual-input-title">输入食品信息</div>
+            <div class="form-group">
+                <label for="manual-food-name">食品名称</label>
+                <input type="text" id="manual-food-name" placeholder="例如：汉堡、米饭、苹果...">
+            </div>
+            <div class="form-group">
+                <label for="manual-food-kcal">卡路里（kcal）</label>
+                <input type="number" id="manual-food-kcal" placeholder="例如：300" min="0">
             </div>
         </div>
     </div>

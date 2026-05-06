@@ -266,6 +266,58 @@ function selectFromAlbum() {
     fileInput.accept = 'image/*';
     fileInput.click();
 }
+
+// 显示手动输入页面
+function showManualInputPage() {
+    closePhotoModal();
+    document.getElementById('manual-food-name').value = '';
+    document.getElementById('manual-food-kcal').value = '';
+    showPage('manual-input-page');
+}
+
+// 从手动输入页面返回
+function goBackFromManual() {
+    showPage('home-page');
+}
+
+// 保存手动输入
+function saveManualInput() {
+    const foodName = document.getElementById('manual-food-name').value.trim();
+    const kcal = parseInt(document.getElementById('manual-food-kcal').value) || 0;
+
+    if (!foodName) {
+        alert('请输入食品名称');
+        return;
+    }
+    if (kcal <= 0) {
+        alert('请输入有效的卡路里值');
+        return;
+    }
+
+    const category = selectedMealType;
+    const now = new Date();
+    const dateStr = getCurrentDateStr();
+
+    if (!dailyRecords[dateStr]) {
+        dailyRecords[dateStr] = {
+            breakfast: [],
+            lunch: [],
+            dinner: [],
+            snack: []
+        };
+    }
+
+    dailyRecords[dateStr][category].push({
+        kcal: kcal,
+        time: now.toTimeString().slice(0, 5),
+        description: foodName
+    });
+
+    localStorage.setItem('dailyRecords', JSON.stringify(dailyRecords));
+    resultKcal = kcal;
+    document.getElementById('result-kcal').textContent = resultKcal;
+    showPage('complete-page');
+}
 // 文件选择处理
 document.getElementById('file-input').addEventListener('change', function(e) {
     const file = e.target.files[0];

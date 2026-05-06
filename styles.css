@@ -654,3 +654,47 @@ body {
     font-size: 14px;
     margin-bottom: 16px;
 }
+
+/* 手动输入页面 */
+.manual-input-content {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.manual-input-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.form-group input {
+    padding: 14px 16px;
+    border: 2px solid #eee;
+    border-radius: 12px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+    border-color: #ff6b6b;
+}
+
+.form-group input::placeholder {
+    color: #999;
+}
