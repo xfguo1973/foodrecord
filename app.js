@@ -222,17 +222,20 @@ function closeAddModal() {
 // 选择照片
 function selectPhoto() {
     closeAddModal();
-    document.getElementById('file-input').capture = 'environment';
-    document.getElementById('file-input').click();
+    const fileInput = document.getElementById('file-input');
+    fileInput.setAttribute('capture', 'environment');
+    fileInput.accept = 'image/*';
+    fileInput.click();
 }
 
 // 从相册选择
 function selectFromAlbum() {
     closeAddModal();
-    document.getElementById('file-input').capture = '';
-    document.getElementById('file-input').click();
+    const fileInput = document.getElementById('file-input');
+    fileInput.removeAttribute('capture');
+    fileInput.accept = 'image/*';
+    fileInput.click();
 }
-
 // 文件选择处理
 document.getElementById('file-input').addEventListener('change', function(e) {
     const file = e.target.files[0];
