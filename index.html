@@ -26,6 +26,9 @@
             <div class="summary-suggestion" id="suggestion-text">👉 加餐有点多，晚餐尽量清淡</div>
         </div>
 
+        <!-- 今日完成按钮 -->
+        <button class="complete-btn" onclick="showDailyComplete()">✅ 今日完成</button>
+
         <!-- 记录列表 -->
         <div class="record-section">
             <h3 class="section-title">📅 <span id="current-date">今天</span></h3>
@@ -178,6 +181,53 @@
         <div class="complete-actions">
             <button class="action-btn" onclick="addAnother()">📷 再拍一张</button>
             <button class="action-btn primary" onclick="goHome()">← 返回首页</button>
+        </div>
+    </div>
+
+    <!-- 今日完成弹窗 -->
+    <div id="daily-complete-modal" class="modal">
+        <div class="modal-content complete-modal-content">
+            <div class="modal-header">
+                <h3>📊 今日完成</h3>
+                <button class="close-btn" onclick="closeDailyCompleteModal()">×</button>
+            </div>
+            <div class="complete-stats">
+                <div class="complete-total">
+                    <div class="total-label">今日总卡路里</div>
+                    <div class="total-value">🔥 <span id="complete-total-kcal">1850</span> kcal</div>
+                </div>
+                <div class="complete-target">
+                    <div class="target-label">目标</div>
+                    <div class="target-value">🎯 <span id="target-kcal">1600</span> kcal</div>
+                </div>
+                <div class="complete-comparison" id="complete-comparison">
+                    <span id="comparison-emoji">😊</span>
+                    <span id="comparison-text">已完成目标的 115%</span>
+                </div>
+                <div class="meal-breakdown">
+                    <div class="meal-breakdown-title">各餐明细</div>
+                    <div class="meal-row">
+                        <span class="meal-icon">🍳</span>
+                        <span class="meal-name">早餐</span>
+                        <span class="meal-kcal" id="breakfast-kcal">350</span>
+                    </div>
+                    <div class="meal-row">
+                        <span class="meal-icon">🍱</span>
+                        <span class="meal-name">午餐</span>
+                        <span class="meal-kcal" id="lunch-kcal">700</span>
+                    </div>
+                    <div class="meal-row">
+                        <span class="meal-icon">🍪</span>
+                        <span class="meal-name">加餐</span>
+                        <span class="meal-kcal" id="snack-kcal">500</span>
+                    </div>
+                    <div class="meal-row">
+                        <span class="meal-icon">🍝</span>
+                        <span class="meal-name">晚餐</span>
+                        <span class="meal-kcal" id="dinner-kcal">300</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

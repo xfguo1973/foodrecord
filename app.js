@@ -588,6 +588,51 @@ function updateMealAnalysis() {
     updateStatus(document.querySelector('.meal-analysis .analysis-item:nth-child(3) .analysis-status'), 'dinner');
 }
 
+// 显示今日完成弹窗
+function showDailyComplete() {
+    const dateStr = getCurrentDateStr();
+    const records = dailyRecords[dateStr] || { breakfast: [], lunch: [], dinner: [], snack: [] };
+    
+    const totals = {
+        breakfast: records.breakfast.reduce((sum, item) => sum + item.kcal, 0),
+        lunch: records.lunch.reduce((sum, item) => sum + item.kcal, 0),
+        dinner: records.dinner.reduce((sum, item) => sum + item.kcal, 0),
+        snack: records.snack.reduce((sum, item) => sum + item.kcal, 0)
+    };
+    
+    const totalKcal = totals.breakfast + totals.lunch + totals.dinner + totals.snack;
+    const ratio = totalKcal / targetKcal;
+    
+    document.getElementById('complete-total-kcal').textContent = totalKcal;
+    document.getElementById('target-kcal').textContent = targetKcal;
+    document.getElementById('breakfast-kcal').textContent = totals.breakfast + ' kcal';
+    document.getElementById('lunch-kcal').textContent = totals.lunch + ' kcal';
+    document.getElementById('snack-kcal').textContent = totals.snack + ' kcal';
+    document.getElementById('dinner-kcal').textContent = totals.dinner + ' kcal';
+    
+    let emoji, text;
+    if (ratio < 0.8) {
+        emoji = '😢';
+        text = `已完成目标的 ${Math.round(ratio * 100)}%，有点偏少哦`;
+    } else if (ratio <= 1.1) {
+        emoji = '😊';
+        text = `已完成目标的 ${Math.round(ratio * 100)}%，完美！`;
+    } else {
+        emoji = '😐';
+        text = `已完成目标的 ${Math.round(ratio * 100)}%，有点超标了`;
+    }
+    
+    document.getElementById('comparison-emoji').textContent = emoji;
+    document.getElementById('comparison-text').textContent = text;
+    
+    document.getElementById('daily-complete-modal').classList.add('active');
+}
+
+// 关闭今日完成弹窗
+function closeDailyCompleteModal() {
+    document.getElementById('daily-complete-modal').classList.remove('active');
+}
+
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', function() {
     initData();
